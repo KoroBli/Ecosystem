@@ -14,9 +14,9 @@ public class statsBehaviour : MonoBehaviour
     public Text FoodText;
     public Text DrinkText;
 
-    float drink;
+    public float drink;
     public float startDrink;
-    float food;
+    public float food;
     public float startFood;
     float health;
     public float startHealth;
@@ -45,6 +45,7 @@ public class statsBehaviour : MonoBehaviour
         if(health <= 0)
         {
             health = 0;
+            Debug.Log("Estoy muerto bibo");
         }
         else
         {
