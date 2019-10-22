@@ -20,6 +20,8 @@ public class statsBehaviour : MonoBehaviour
     public float startFood;
     float health;
     public float startHealth;
+    public bool criticalFood;
+    public bool criticalDrink;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,12 @@ public class statsBehaviour : MonoBehaviour
 
             if (drink <= 0) drink = 0;
             else drink -= 0.02f;
+
+            if (drink <= 25) criticalDrink = true;
+            else if (drink > 25) criticalDrink = false;
+
+            if (food <= 25) criticalFood = true;
+            else if (food > 25) criticalFood = false;
 
             if (food <= 0 || drink <= 0)
             {
