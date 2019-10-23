@@ -9,12 +9,18 @@ public class AnimalBehaviour : MonoBehaviour
     public Transform nearestFood;
     float distance;
     float prevDistance;
+    public Collider boca;
+    public bool hungry;
+    public bool eating;
+    bool thirsty;
+    public bool drinking;
 
     void Start()
     {
-        prevDistance = fov.viewRadius;
         stats = GetComponentInChildren<statsBehaviour>();
         fov = this.GetComponent<FieldOfView>();
+        prevDistance = fov.viewRadius;
+        boca = gameObject.GetComponent<BoxCollider>();
 
         StartCoroutine("FindResources", 0.5f);
     }
@@ -28,10 +34,12 @@ public class AnimalBehaviour : MonoBehaviour
             if ((stats.drink < stats.startDrink/2 && !stats.criticalFood) || stats.criticalDrink)
             {
                 FindVisibleResources(1);
+                thirsty = true;
             }
             else if (stats.food < stats.startFood/2)
             {
                 FindVisibleResources(2);
+                hungry = true;
             }
         }
     }
@@ -63,13 +71,41 @@ public class AnimalBehaviour : MonoBehaviour
                         if(distance < prevDistance)
                         {
                             prevDistance = distance;
-                            nearestFood = fov.visibleTargets[i].gameObject.transform;
+                            nearestFood = fov.visibleTargets[i].gameObject.transform;                                                     
                         }
                     }
                 }
                 break;
 
 
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (hungry && other.gameObject.tag == "Food")
+        {
+            Debug.Log("ñam");
+            eating = true;
+            Eat();
+        }
+           
+    }
+
+    private void Eat()
+    {
+        if (eating)
+        {
+            if (stats.food < stats.startFood)
+            {
+                stats.food += 0.1f;
+            }
+            else
+            {
+                eating = false;
+                hungry = false;
+                nearestFood = null;
+            }
         }
     }
 

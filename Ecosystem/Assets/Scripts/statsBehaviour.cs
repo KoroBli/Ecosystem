@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class statsBehaviour : MonoBehaviour
 {
+    public AnimalBehaviour animal;
+    
     public Transform targetCamera;
 
     public Image healthBar;
@@ -26,6 +28,7 @@ public class statsBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animal = GetComponentInParent<AnimalBehaviour>();
         drink = startDrink;
         food = startFood;
         health = startHealth;
@@ -52,25 +55,42 @@ public class statsBehaviour : MonoBehaviour
         else
         {
             if (food <= 0) food = 0;
-            else food -= 0.01f;
+            else if (food > startFood) food = startFood;
+            else
+            {
+                if (!animal.eating)
+                {
+                    food -= 0.01f;
+                }
+            }
+
 
             if (drink <= 0) drink = 0;
-            else drink -= 0.02f;
+            else if (drink > startDrink) drink = startDrink;
+            else
+            {
+                if (!animal.drinking)
+                {
+                   //drink -= 0.02f;
+                }
+                
+            }
 
-            if (drink <= 25) criticalDrink = true;
-            else if (drink > 25) criticalDrink = false;
+            if (drink <= startDrink/4) criticalDrink = true;
+            else if (drink > startDrink/4) criticalDrink = false;
 
-            if (food <= 25) criticalFood = true;
-            else if (food > 25) criticalFood = false;
+            if (food <= startFood/4) criticalFood = true;
+            else if (food > startFood/4) criticalFood = false;
 
             if (food <= 0 || drink <= 0)
             {
-                health -= 0.02f;
+                if (health <= 0) health = 0;
+                else health -= 0.02f;
             }
-            else if(food >= 50 && drink >= 50)
+            else if(food >= startFood/2 && drink >= startDrink/2)
             {
-                if (health >= 100) health = 100;
-                else health += 0.01f;
+                if (health >= startHealth) health = startHealth;
+                else health += 0.05f;
             }
         }
 
