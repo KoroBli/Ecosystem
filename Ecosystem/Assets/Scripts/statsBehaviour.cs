@@ -54,16 +54,18 @@ public class statsBehaviour : MonoBehaviour
         }
         else
         {
-            if (food <= 0) food = 0;
-            else if (food > startFood) food = startFood;
-            else
+            if (!animal.digesting)
             {
-                if (!animal.eating)
+                if (food <= 0) food = 0;
+                else if (food > startFood) food = startFood;
+                else
                 {
-                    food -= 0.01f;
+                    if (!animal.eating)
+                    {
+                        food -= 0.01f;
+                    }
                 }
             }
-
 
             if (drink <= 0) drink = 0;
             else if (drink > startDrink) drink = startDrink;

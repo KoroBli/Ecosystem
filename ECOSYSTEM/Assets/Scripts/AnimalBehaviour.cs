@@ -14,6 +14,7 @@ public class AnimalBehaviour : MonoBehaviour
     public bool eating;
     bool thirsty;
     public bool drinking;
+    public bool digesting;
 
     void Start()
     {
@@ -89,7 +90,17 @@ public class AnimalBehaviour : MonoBehaviour
             eating = true;
             Eat();
         }
-           
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (eating)
+        {
+            digesting = true;
+            Invoke("DigestionTime", 10);
+            eating = false;
+            hungry = false;
+        }
     }
 
     private void Eat()
@@ -105,7 +116,17 @@ public class AnimalBehaviour : MonoBehaviour
                 eating = false;
                 hungry = false;
                 nearestFood = null;
+                digesting = true;
+                Invoke("DigestionTime", 10);
             }
+        }
+    }
+
+    private void DigestionTime()
+    {
+        if (digesting)
+        {
+            digesting = false;
         }
     }
 
