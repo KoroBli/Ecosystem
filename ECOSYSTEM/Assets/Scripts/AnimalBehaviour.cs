@@ -7,6 +7,7 @@ public class AnimalBehaviour : MonoBehaviour
     public statsBehaviour stats;
     public FieldOfView fov;
     public Transform nearestFood;
+    public FoodBehaviour nutrients;
     float distance;
     float prevDistance;
     public Collider boca;
@@ -109,7 +110,8 @@ public class AnimalBehaviour : MonoBehaviour
         {
             if (stats.food < stats.startFood)
             {
-                stats.food += 0.1f;
+                stats.food += 0.1f * nutrients.bonusFactor;
+                nutrients.nutritionStat -= 0.1f;
             }
             else
             {
