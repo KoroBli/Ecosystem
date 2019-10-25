@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 530611661}
   - component: {fileID: 530611660}
   - component: {fileID: 530611659}
+  - component: {fileID: 530611663}
   m_Layer: 9
   m_Name: Cube (6)
   m_TagString: Food
@@ -396,6 +397,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &530611663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530611658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a379d3d41d91342b5fc713570056cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nutritionStat: 0
+  bonusFactor: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +544,7 @@ MonoBehaviour:
   stats: {fileID: 0}
   fov: {fileID: 0}
   nearestFood: {fileID: 0}
+  nutrients: {fileID: 0}
   boca: {fileID: 813395739}
   hungry: 0
   eating: 0
@@ -545,8 +561,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: -0.02, z: 0.98}
+  m_Size: {x: 0.85, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: -0.19, z: 0.98}
 --- !u!54 &813395740
 Rigidbody:
   m_ObjectHideFlags: 0

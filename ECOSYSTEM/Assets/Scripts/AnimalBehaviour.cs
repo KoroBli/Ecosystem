@@ -73,7 +73,8 @@ public class AnimalBehaviour : MonoBehaviour
                         if(distance < prevDistance)
                         {
                             prevDistance = distance;
-                            nearestFood = fov.visibleTargets[i].gameObject.transform;                                                     
+                            nearestFood = fov.visibleTargets[i].gameObject.transform;
+                            nutrients = nearestFood.GetComponent<FoodBehaviour>();
                         }
                     }
                 }
@@ -119,7 +120,6 @@ public class AnimalBehaviour : MonoBehaviour
                 hungry = false;
                 nearestFood = null;
                 digesting = true;
-                Invoke("DigestionTime", 10);
             }
         }
     }
