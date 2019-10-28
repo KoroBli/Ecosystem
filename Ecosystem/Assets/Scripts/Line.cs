@@ -16,8 +16,18 @@ public struct Line
         float dx = pointOnLine.x - pointPerpendicularToLine.x;
         float dy = pointOnLine.y - pointPerpendicularToLine.y;
 
-        gradientPerpendicular = dy / dx;
+        if (dx == 0)
+        {
+            gradientPerpendicular = verticalLineGradient;
+        }
+        else gradientPerpendicular = dy / dx;
 
+        if (gradientPerpendicular == 0)
+        {
+            gradient = verticalLineGradient;
+        }
+        else gradient = -1 / gradientPerpendicular;
 
+        y_Intercept = pointOnLine.y - gradient * pointOnLine.x;
     }
 }
