@@ -120,6 +120,7 @@ public class AnimalBehaviour : MonoBehaviour
                 hungry = false;
                 nearestFood = null;
                 digesting = true;
+                Invoke("DigestionTime", 10);
             }
         }
     }
