@@ -7,6 +7,7 @@ public class AnimalBehaviour : MonoBehaviour
     public statsBehaviour stats;
     public FieldOfView fov;
     public Transform nearestFood;
+    public Transform nearestCouple;
     public FoodBehaviour nutrients;
     float distance;
     float prevDistance;
@@ -16,6 +17,10 @@ public class AnimalBehaviour : MonoBehaviour
     bool thirsty;
     public bool drinking;
     public bool digesting;
+    public bool male;
+    public bool reproduction;
+    public bool fucking;
+
 
     void Start()
     {
@@ -42,6 +47,11 @@ public class AnimalBehaviour : MonoBehaviour
             {
                 FindVisibleResources(2);
                 hungry = true;
+            }
+            else if (stats.reproductionNeed == stats.maxReprod)
+            {
+                FindVisibleResources(3);
+                reproduction = true;
             }
         }
     }
@@ -80,6 +90,30 @@ public class AnimalBehaviour : MonoBehaviour
                 }
                 break;
 
+            case 3:
+                for (int i = 0; i < fov.visibleTargets.Count; i++)
+                {
+                    if (fov.visibleTargets[i].gameObject.tag == "Couple")
+                    {
+                        distance = Vector3.Distance(transform.position, fov.visibleTargets[i].gameObject.transform.position);
+
+                        if (distance < prevDistance)
+                        {
+                            prevDistance = distance;
+                            nearestCouple = fov.visibleTargets[i].gameObject.transform;
+                            if (nearestCouple.GetComponent<AnimalBehaviour>().male != male && nearestCouple.GetComponentInChildren<AnimalBehaviour>().reproduction)
+                            {
+                                Debug.Log("A follar!!!");
+                            }
+                            else 
+                            {
+                                fov.visibleTargets.Remove(nearestCouple);
+                                nearestCouple = null;
+                            }
+                        }
+                    }
+                }
+                break;
 
         }
     }
@@ -91,6 +125,13 @@ public class AnimalBehaviour : MonoBehaviour
             Debug.Log("ñam");
             eating = true;
             Eat();
+        }
+
+        if (reproduction && other.gameObject.tag == "Couple")
+        {
+            Debug.Log("...");
+            fucking = true;
+            Fuck();
         }
     }
 
@@ -133,4 +174,12 @@ public class AnimalBehaviour : MonoBehaviour
         }
     }
 
+    private void Fuck()
+    {
+        if (fucking)
+        {
+            
+            stats.reproductionNeed = 0.0f;
+        }
+    }
 }

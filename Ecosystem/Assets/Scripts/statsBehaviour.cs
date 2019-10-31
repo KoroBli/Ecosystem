@@ -21,9 +21,12 @@ public class statsBehaviour : MonoBehaviour
     public float food;
     public float startFood;
     float health;
+    public float reproductionNeed;
+    public float maxReprod;
     public float startHealth;
     public bool criticalFood;
     public bool criticalDrink;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +35,7 @@ public class statsBehaviour : MonoBehaviour
         drink = startDrink;
         food = startFood;
         health = startHealth;
+        maxReprod = 100.0f;
 
         targetCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
@@ -93,6 +97,11 @@ public class statsBehaviour : MonoBehaviour
             {
                 if (health >= startHealth) health = startHealth;
                 else health += 0.05f;
+            }
+            if (drink >= (3*startDrink/4) && food >= (3*startFood/4) && health == startHealth)
+            {
+                if (reproductionNeed >= maxReprod) reproductionNeed = maxReprod;
+                else reproductionNeed += 0.2f;
             }
         }
 
